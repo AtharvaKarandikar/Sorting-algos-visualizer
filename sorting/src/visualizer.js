@@ -9,7 +9,7 @@ class Visualizer extends Component{
 
     constructor(props){
       const randNums =[];
-      for(let i = 0; i<75; i++){
+      for(let i = 0; i<25; i++){
         let num = Math.floor(Math.random()*400)
         randNums.push(num) 
     }
