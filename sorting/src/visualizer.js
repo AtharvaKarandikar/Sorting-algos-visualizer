@@ -293,6 +293,9 @@ class Visualizer extends Component{
       await this.sleep(12)
     }
   }
+  async reset(){
+    window.location.reload(false);
+  }
 
   swap(arr, i, j) {
     let temp = arr[i];
@@ -332,6 +335,11 @@ async partition(arr, low, high) {
 }
  
 async quickSort(arr, low, high) {
+  if(low === 0 && high === this.state.randNums.length-1){
+    this.setState({
+      isDisabled: true
+    })
+  }
     if (low < high) {
 
         let { color } = this.state
@@ -354,6 +362,11 @@ async quickSort(arr, low, high) {
         this.setState({color})
         await this.sleep(50)
         }
+    }
+    if(low === 0 && high === this.state.randNums.length-1){
+      this.setState({
+        isDisabled: false
+      })
     }
 }
 
@@ -378,6 +391,7 @@ async quickSort(arr, low, high) {
                 backgroundColor={this.state.color[id]}/>))}
             </div>
             <button disabled={this.state.isDisabled} style={this.state.isDisabled?{ cursor : 'not-allowed'}:{}} className='shuffle' onClick={this.shuffle} >Shuffle the list</button>
+            <button onClick={this.reset}>Reset</button>
             <div className='copyrights'>CopyRights © 2022, Atharva Karandikar</div>
         </div>
       )

@@ -7,7 +7,8 @@
     background-color: #192734;
 }
 .shuffle{
-    margin-left: 45%;
+    margin-left: 42%;
+    border: #fff 2px solid;
 }
 
 .name{
@@ -44,7 +45,7 @@
     padding-top: 1%;
     margin-left: 8%;
     margin-right: 8%;
-    /* border-bottom: 2px lightcyan solid; */
+    border-bottom: 2px lightcyan solid;
     align-items: flex-end;
     display : flex;
 
@@ -57,11 +58,12 @@
    
 
 button{
-    
+    border: #fff 2px solid;
     display: inline-block;
     outline: 0;
     cursor: pointer;
     border: 2px solid#000;
+    border: lightblue 2px solid;
     border-radius: 3px;
     color: #fff;
     background: #000;
@@ -94,7 +96,7 @@ button:hover{
 }
 .button-merge:hover{
     color: #000;
-    background: #FF5959;
+    background:#EE4B2B;
 }
 .button-selection:hover{
     color: #000;
@@ -102,7 +104,7 @@ button:hover{
 }
 .button-insertion:hover{
     color: #000;
-    background: #F8F1F1;
+    background: gray;
 }
 .shuffle:hover{
     color: #000;
