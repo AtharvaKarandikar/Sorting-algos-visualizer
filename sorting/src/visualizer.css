@@ -69,7 +69,7 @@
     padding-top: 1%;
     margin-left: 8%;
     margin-right: 8%;
-    border-bottom: 2px lightcyan solid;
+    /* border-bottom: 2px lightcyan solid; */
     align-items: flex-end;
     display : flex;
 
