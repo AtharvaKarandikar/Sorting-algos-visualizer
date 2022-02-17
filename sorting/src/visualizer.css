@@ -10,7 +10,19 @@
     margin-left: 42%;
     border: #fff 2px solid;
 }
-
+.comparisons{
+    color: lightgoldenrodyellow;
+    margin-left: 15%;
+    font-size: 18px;
+    font-weight: 500;
+}
+.comparisons1{
+    margin-right: 5%;
+    float: right;
+    color: lightgoldenrodyellow;
+    font-size: 18px;
+    font-weight: 500;
+}
 .name{
     margin-left: 4%;
     padding-top: 1% ;
@@ -37,6 +49,18 @@
     color: aliceblue;
     margin-left:1%;
     margin-top: 3%;
+}
+.sortname{
+    align-self: center;
+    align-content: center;
+    margin-left: 4%;
+    padding-top: 1% ;
+    color: lightgoldenrodyellow;
+    font-weight: 700;
+    font-size: 45px;
+    float: left;
+    background-color: #192734;
+
 }
 .Box{
     
@@ -82,29 +106,48 @@ button{
     transition-timing-function: cubic-bezier(.4,0,.2,1);
     
 }
-button:hover{
-    color: #000;
-    background: rgb(255, 218, 87);
-}
+
+
 .button-bubble:hover{
     color: #000;
     background: lime;
 }
+.bubbleactive{
+    color: #000;
+    background: lime;
+}
+
 .button-quick:hover{
     color: #000;
     background: #FFE400;
 }
-.button-merge:hover{
+.quickactive{
     color: #000;
-    background:#EE4B2B;
+    background: #FFE400;
+}
+.button-merge:hover{
+    color: aliceblue;
+    background: slateblue;
+}
+.mergeactive{
+    color: aliceblue;
+    background: slateblue;
 }
 .button-selection:hover{
-    color: #000;
+    color: black;
+    background: #2FDD92;
+}
+.selectionactive{
+    color: black;
     background: #2FDD92;
 }
 .button-insertion:hover{
-    color: #000;
-    background: gray;
+    color: aliceblue;
+    background: #FF0000;
+}
+.insertionactive{
+    color: aliceblue;
+    background: #FF0000;
 }
 .shuffle:hover{
     color: #000;

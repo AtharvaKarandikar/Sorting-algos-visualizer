@@ -14,7 +14,7 @@ class Visualizer extends Component{
         randNums.push(num) 
     }
         super(props)
-        this.state = {randNums : randNums, isDisabled : false, color:Array.from({length:100}, () => 'turquoise')}
+        this.state = {sort: null, cmp : 0, randNums : randNums, isDisabled : false, color:Array.from({length:100}, () => 'turquoise')}
         this.bubbleSort = this.bubbleSort.bind(this)
         this.insertionSort = this.insertionSort.bind(this)
         this.shuffle = this.shuffle.bind(this)
@@ -32,11 +32,13 @@ class Visualizer extends Component{
     async selectionSort()
     {
       this.setState({
+        sort: 'selection',
         isDisabled: true
       })
       let arr = [...this.state.randNums];
       let i, j, min_idx, n = this.state.randNums.length;
       let {color} = this.state
+      let {cmp} = this.state
     // One by one move boundary of unsorted subarray
       for (i = 0; i < n-1; i++)
       {
@@ -44,6 +46,11 @@ class Visualizer extends Component{
         
         min_idx = i;
         for (j = i + 1; j < n; j++){
+          this.setState(
+            st => ({
+              cmp : st.cmp + 1
+            })
+          )
           let oldd = color[j];  
           color[j] = '#F7DE3A';
             
@@ -132,7 +139,12 @@ class Visualizer extends Component{
               arr[k] = R[j];
               j++;
           }
-          k++;    
+          k++; 
+          this.setState(
+            st => ({
+              cmp : st.cmp + 1
+            })
+          )   
           await this.sleep(50) 
           this.setState({randnums:arr})   
       }
@@ -161,6 +173,7 @@ class Visualizer extends Component{
   mergeSort = async (arr,l, r) => {
     if(l === 0 && r === this.state.randNums.length-1){
       this.setState({
+        sort: 'merge',
         isDisabled: true
       })
     }
@@ -199,6 +212,7 @@ class Visualizer extends Component{
 
     async insertionSort() 
     {  this.setState({
+      sort: 'insertion',
       isDisabled: true
     })
       const arr = [...this.state.randNums];
@@ -209,6 +223,11 @@ class Visualizer extends Component{
  
         // Insert arr[i] into list 0..i-1
         while (j > 0 && arr[j] < arr[j - 1]) {
+          this.setState(
+            st => ({
+              cmp : st.cmp + 1
+            })
+          )
  
             let old = color[j-1]
             color[j] = '#FF033E'
@@ -239,6 +258,7 @@ class Visualizer extends Component{
     } 
     async bubbleSort(){
       this.setState({
+        sort: 'bubble',
         isDisabled: true
       })
         const arr = [...this.state.randNums];
@@ -251,10 +271,16 @@ class Visualizer extends Component{
             
            
             await this.sleep(10)
+            this.setState(
+              st => ({
+                cmp : st.cmp + 1
+              })
+            )
             if(arr[j] > arr[j+1]){ 
               color[j] = '#F7DE3A';
               color[j+1] = '#F7DE3A';
               this.setState({randNums : arr, color})
+              
               color[j] = 'turquoise';
               color[j+1] = 'turquoise';
               var temp = arr[j]
@@ -312,7 +338,11 @@ async partition(arr, low, high) {
     let i = (low - 1);
  
     for (let j = low; j <= high - 1; j++) {
- 
+      this.setState(
+        st => ({
+          cmp : st.cmp + 1
+        })
+      )
         if (arr[j] < pivot) {
             i++;
             let temp = arr[i];
@@ -337,6 +367,7 @@ async partition(arr, low, high) {
 async quickSort(arr, low, high) {
   if(low === 0 && high === this.state.randNums.length-1){
     this.setState({
+      sort: 'quick',
       isDisabled: true
     })
   }
@@ -379,20 +410,48 @@ async quickSort(arr, low, high) {
                 
                   
                 <a className='name'>SORTING VISUALIZER</a>
-                <button style={this.state.isDisabled?{ cursor : 'not-allowed'}:{}} className='button-bubble' disabled={this.state.isDisabled} onClick={this.bubbleSort}>BubbleSort</button>
-                <button style={this.state.isDisabled?{ cursor : 'not-allowed'}:{}} className='button-insertion' disabled={this.state.isDisabled} onClick={this.insertionSort}>InsertionSort</button>
-                <button style={this.state.isDisabled?{ cursor : 'not-allowed'}:{}} className='button-merge' disabled={this.state.isDisabled} onClick={()=>this.mergeSort(this.state.randNums, 0, this.state.randNums.length -1)}>MergeSort</button>
-                <button style={this.state.isDisabled?{ cursor : 'not-allowed'}:{}} className='button-quick' disabled={this.state.isDisabled} onClick={()=>this.quickSort(this.state.randNums, 0, this.state.randNums.length -1)}>QuickSort</button>
-                <button style={this.state.isDisabled?{ cursor : 'not-allowed'}:{}} className='button-selection' disabled={this.state.isDisabled} onClick={this.selectionSort}>SelectionSort</button>
+                <button style={this.state.isDisabled?{ cursor : 'not-allowed'}:{}} className={this.state.sort === 'bubble'?'bubbleactive':'button-bubble'} disabled={this.state.isDisabled} onClick={this.bubbleSort}>BubbleSort</button>
+                <button style={this.state.isDisabled?{ cursor : 'not-allowed'}:{}} className={this.state.sort === 'insertion'?'insertionactive':'button-insertion'} disabled={this.state.isDisabled} onClick={this.insertionSort}>InsertionSort</button>
+                <button style={this.state.isDisabled?{ cursor : 'not-allowed'}:{}} className={this.state.sort === 'merge'?'mergeactive':'button-merge'} disabled={this.state.isDisabled} onClick={()=>this.mergeSort(this.state.randNums, 0, this.state.randNums.length -1)}>MergeSort</button>
+                <button style={this.state.isDisabled?{ cursor : 'not-allowed'}:{}} className={this.state.sort === 'quick'?'quickactive':'button-quick'} disabled={this.state.isDisabled} onClick={()=>this.quickSort(this.state.randNums, 0, this.state.randNums.length -1)}>QuickSort</button>
+                <button style={this.state.isDisabled?{ cursor : 'not-allowed'}:{}} className={this.state.sort === 'selection'?'selectionactive':'button-selection'} disabled={this.state.isDisabled} onClick={this.selectionSort}>SelectionSort</button>
             </div>
             <div className='Box'>
                 {this.state.randNums.map((name, id) => (  
                 <Bar height={name}  
                 backgroundColor={this.state.color[id]}/>))}
             </div>
+           
+            
             <button disabled={this.state.isDisabled} style={this.state.isDisabled?{ cursor : 'not-allowed'}:{}} className='shuffle' onClick={this.shuffle} >Shuffle the list</button>
             <button onClick={this.reset}>Reset</button>
-            <div className='copyrights'>CopyRights © 2022, Atharva Karandikar</div>
+            <a className='comparisons'>Number of comparisons : {this.state.cmp}</a> 
+            <br/>
+      
+            {/* <a className='sortname'>
+            {
+                this.state.sort == null ? ''
+                : this.state.sort == 'bubble'? 'BubbleSort'
+                  : this.state.sort == 'insertion'? 'InsertionSort'
+                    : this.state.sort == 'selection'?'SelectionSort'
+                      : this.state.sort == 'merge'?'MergeSort'
+                        : this.state.sort == 'quick'? 'QuickSort'
+                          :'ERROR'
+              }
+            </a> */}
+            <a className='comparisons1'>
+              {
+                this.state.sort == null ? ''
+                : this.state.sort === 'bubble'? 'Time Complexity - O(n^2) Space Complexity - O(1)'
+                  : this.state.sort === 'insertion'? 'Time Complexity - O(n^2) Space Complexity - O(1)'
+                    : this.state.sort === 'selection'?'Time Complexity - O(n^2) Space Complexity - O(1)'
+                      : this.state.sort === 'merge'?'Time Complexity - O(nlog(n)) Space Complexity - O(n)'
+                        : this.state.sort === 'quick'? 'Time Complexity - O(n^2) Space Complexity - O(n)'
+                          :'ERROR'
+              }
+            </a>
+            
+            
         </div>
       )
   } 
