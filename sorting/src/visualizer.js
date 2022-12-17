@@ -7,7 +7,7 @@ import './visualizer.css'
  
 class Visualizer extends Component{
 
-    constructor(props){
+    constructor(props) {
       const randNums =[];
       for(let i = 0; i<75; i++){
         let num = Math.floor(Math.random()*400)
