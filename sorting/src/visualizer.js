@@ -311,7 +311,11 @@ class Visualizer extends Component{
     this.setState({
       randNums: shufflearr
     })
-    this.state.cmp = 0;
+    this.setState(
+      st => ({
+        cmp : 0
+      })
+    )
     for(let i=0;i<this.state.randNums.length;i++){
       color[i] = 'turquoise'
       this.setState({
